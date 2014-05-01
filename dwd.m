@@ -3,6 +3,7 @@
 #include <err.h>
 #include <unistd.h>
 #include <stdbool.h>
+#include <stdint.h>
 #include <stdlib.h>
 #include <string.h>
 #include <sysexits.h>
@@ -25,7 +26,7 @@ main(int argc, char *argv[])
 	unsigned char red = 127;
 	unsigned char green = 127;
 	unsigned char blue = 127;
-	long temp_color;
+	uint32_t temp_color;
 	float alpha = 0.75;
 	bool coverDock = true;
 	float duration;
@@ -37,7 +38,7 @@ main(int argc, char *argv[])
 			// validation could be tighter
 			if (strlen(optarg) != 6)
 				errx(EX_USAGE, "invalid color");
-			temp_color = strtol(optarg, NULL, 16);
+			temp_color = strtoul(optarg, NULL, 16);
 			if ((temp_color & 0xffffff) != temp_color)
 				errx(EX_USAGE, "invalid color");
 			red =   (temp_color & 0xff0000) >> 16;
