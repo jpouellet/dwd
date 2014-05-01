@@ -38,7 +38,7 @@ main(int argc, char *argv[])
 			if (strlen(optarg) != 6)
 				errx(EX_USAGE, "invalid color");
 			temp_color = strtol(optarg, NULL, 16);
-			if (temp_color < 0)
+			if ((temp_color & 0xffffff) != temp_color)
 				errx(EX_USAGE, "invalid color");
 			red =   (temp_color & 0xff0000) >> 16;
 			green = (temp_color & 0x00ff00) >> 8;
@@ -75,9 +75,9 @@ main(int argc, char *argv[])
 	else
 		frame = [[NSScreen mainScreen] visibleFrame];
 
-	NSColor *color = [NSColor colorWithCalibratedRed:(CGFloat)red
-	                                           green:(CGFloat)green
-	                                            blue:(CGFloat)blue
+	NSColor *color = [NSColor colorWithCalibratedRed:(CGFloat)red/255.0
+	                                           green:(CGFloat)green/255.0
+	                                            blue:(CGFloat)blue/255.0
 	                                           alpha:(CGFloat)1.0];
 
 	[NSApplication sharedApplication];
