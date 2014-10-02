@@ -1,3 +1,4 @@
+CFLAGS = -Weverything -Werror -pedantic
 LDFLAGS = -framework Cocoa
 
 all: dwd

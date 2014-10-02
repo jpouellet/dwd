@@ -8,6 +8,8 @@
 #include <string.h>
 #include <sysexits.h>
 
+void usage(void) __attribute__((noreturn));
+
 void
 usage(void)
 {
@@ -38,7 +40,7 @@ main(int argc, char *argv[])
 			// validation could be tighter
 			if (strlen(optarg) != 6)
 				errx(EX_USAGE, "invalid color");
-			temp_color = strtoul(optarg, NULL, 16);
+			temp_color = (uint32_t)strtoul(optarg, NULL, 16);
 			if ((temp_color & 0xffffff) != temp_color)
 				errx(EX_USAGE, "invalid color");
 			red =   (temp_color & 0xff0000) >> 16;
@@ -95,7 +97,7 @@ main(int argc, char *argv[])
 	[window makeKeyAndOrderFront:NSApp];
 	[window setLevel:NSScreenSaverWindowLevel];
 
-	usleep(duration * 1e6);
+	usleep((useconds_t)(duration * 1e6));
 
 	[pool drain];
 
